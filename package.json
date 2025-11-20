@@ -6,7 +6,8 @@
   "description": "Simple Todo app (JS frontend+backend) using localStorage. Training base for Vitest and Cypress.",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "test": "vitest run"
   },
   "engines": {
     "node": ">=18"
@@ -14,5 +15,26 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2"
-  }
+  },
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "vitest": "^4.0.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/essikauko/testaus-todo.git"
+  },
+  "keywords": [],
+  "author": "Essi Kaukometsa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/essikauko/testaus-todo/issues"
+  },
+  "homepage": "https://github.com/essikauko/testaus-todo#readme"
 }
