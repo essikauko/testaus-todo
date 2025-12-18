@@ -121,4 +121,25 @@ describe('Todo app', () => {
     // Tarkistetaan, että focus palautuu otsikkokenttään (app.js logiikka)
     cy.get('#topic').should('be.focused');
   });
+  it('suodattaa listan näyttämään vain valitun prioriteetin tehtävät', () => {
+    // 1. Luodaan kaksi erilaista tehtävää
+    cy.get('#topic').type('High Task');
+    cy.get('#priority').select('high');
+    cy.get('#save-btn').click();
+
+    cy.get('#topic').type('Low Task');
+    cy.get('#priority').select('low');
+    cy.get('#save-btn').click();
+
+    // 2. Klikataan High-suodatinta
+    cy.get('.filter-btn[data-filter="high"]').click();
+
+    // 3. Varmistetaan että vain High näkyy
+    cy.get('#task-list').should('contain', 'High Task');
+    cy.get('#task-list').should('not.contain', 'Low Task');
+
+    // 4. Poistetaan suodatus (All)
+    cy.get('.filter-btn[data-filter="all"]').click();
+    cy.get('#task-list').should('contain', 'Low Task');
+  });
 });
