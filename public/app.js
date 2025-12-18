@@ -77,19 +77,30 @@
 
   // State
   let tasks = loadTasks();
+  let currentFilter = 'all';
 
   // Render
   function render() {
     list.innerHTML = '';
-    if (!tasks.length) {
+
+    // 1. SUODATUS: Luodaan uusi lista, joka sisältää vain valitun prioriteetin mukaiset taskit [tehtävänanto]
+    const filteredTasks = tasks.filter((t) => {
+      if (currentFilter === 'all') return true;
+      return t.priority === currentFilter;
+    });
+
+    // 2. TYHJÄ TILA: Näytetään "No tasks yet", jos suodatettu lista on tyhjä
+    if (!filteredTasks.length) {
       emptyState.style.display = 'block';
       return;
     }
     emptyState.style.display = 'none';
 
-    tasks
+    // 3. JÄRJESTELY JA NÄYTTÄMINEN: Käytetään suodatettua listaa
+    filteredTasks
       .sort((a, b) => {
-        // Not-done first, then by priority (high->low), then newest first
+        // Tehdään lajittelu testaussuunnitelman ja alkuperäisen koodin mukaan:
+        // Valmiit viimeiseksi, sitten prioriteetti ja luontiaika [cite: 1, 17]
         if (a.completed !== b.completed) return a.completed ? 1 : -1;
         const prioRank = { high: 0, medium: 1, low: 2 };
         if (prioRank[a.priority] !== prioRank[b.priority]) {
@@ -247,7 +258,14 @@
       render();
     }
   });
+  // Lisää tämä app.js loppupuolelle
+  document.querySelectorAll('.filter-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Luetaan data-filter attribuutti napista (low, medium, high tai all)
+      currentFilter = btn.dataset.filter;
 
-  // Initial paint
-  render();
+      // Kutsutaan render-funktiota uudestaan, jotta lista päivittyy
+      render();
+    });
+  });
 })();

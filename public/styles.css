@@ -218,6 +218,37 @@ button:disabled {
   color: var(--brand-2);
   text-decoration: none;
 }
+.filter-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-left: 5px;
+  transition: opacity 0.2s;
+}
+
+.filter-btn:hover {
+  opacity: 0.8;
+}
+
+/* Käytetään samoja värejä kuin aiemmin */
+.filter-btn.low {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+.filter-btn.medium {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+.filter-btn.high {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+.filter-btn.all {
+  background-color: #e5e7eb;
+  color: #374151;
+}
 
 @media (max-width: 860px) {
   .grid {
